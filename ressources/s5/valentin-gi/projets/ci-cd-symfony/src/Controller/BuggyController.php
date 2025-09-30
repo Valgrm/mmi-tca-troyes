@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BuggyController extends AbstractController
 {
@@ -17,11 +19,13 @@ class BuggyController extends AbstractController
         ];
     }
 
-    /**
-     * @return array<string, number>
-     */
-    public function index(): array
+    #[Route('/bug', name: 'buggy_route')]
+    public function buggyAction(): Response
     {
-        return $this->getData();
+        $data = $this->getData();
+
+        return $this->render('welcome.html.twig', [
+            'data' => $data['key1'],
+        ]);
     }
 }
